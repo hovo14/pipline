@@ -4,6 +4,8 @@
 
 properties([disableConcurrentBuilds()])
 
+
+
 pipeline {
 
     agent { 
@@ -12,6 +14,7 @@ pipeline {
 
         }
 
+    triggers { pollSCM('* * * * *') }
 
     options {
 
@@ -19,7 +22,7 @@ pipeline {
 
         timestamps()
 
- }
+    }
 
     stages {
 
@@ -29,23 +32,20 @@ pipeline {
 
                 echo " ============== docker login =================="
 
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_hovops', usernameVariable: 'hovo14', passwordVariable: 'fearme1$')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_hovo', usernameVariable: 'hovo14', passwordVariable: 'fearme1$')]) {
 
                     sh """
 
                     docker login -u $USERNAME -p $PASSWORD
 
                     """
-   
-             }
-  
-          }
 
-     }
+                }
 
+            }
 
-    stages {
-     
+        }
+
         stage("create docker image") {
 
             steps {
@@ -54,15 +54,14 @@ pipeline {
 
                 dir ('docker') {
 
-                sh 'docker build -t hovops/nginx  . '
+                sh 'docker build -t hovops/nginx . '
 
                 }
+            }
 
-             }
+        }
 
-          }
-
-stage("docker push") {
+        stage("docker push") {
 
             steps {
 
@@ -70,14 +69,15 @@ stage("docker push") {
 
                 sh '''
 
-                docker push semaev/hovops/gninx
+                docker push hovops/nginx
 
                 '''
-      
-         }
 
-      }
+            }
 
-   }
+        }
+
+    }
 
 }
+        
