@@ -19,7 +19,30 @@ pipeline {
 
         timestamps()
 
-    }
+ }
+
+    stages {
+
+        stage("docker login") {
+
+            steps {
+
+                echo " ============== docker login =================="
+
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_hovops', usernameVariable: 'hovo14', passwordVariable: 'fearme1$')]) {
+
+                    sh """
+
+                    docker login -u $USERNAME -p $PASSWORD
+
+                    """
+   
+             }
+  
+          }
+
+     }
+
 
     stages {
      
@@ -38,7 +61,25 @@ pipeline {
              }
 
           }
+
+stage("docker push") {
+
+            steps {
+
+                echo " ============== start pushing image =================="
+
+                sh '''
+
+                docker push semaev/hovops/gninx
+
+                '''
       
-       }
+         }
+
+      }
 
    }
+
+}
+
+
