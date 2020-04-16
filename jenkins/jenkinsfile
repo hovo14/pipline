@@ -32,7 +32,7 @@ pipeline {
 
                 echo " ============== docker login =================="
 
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_hovo', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_hovo', usernameVariable: 'hovo14', passwordVariable: 'fearme1$')]) {
 
                     sh """
 
