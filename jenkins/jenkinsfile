@@ -32,7 +32,7 @@ pipeline {
 
                 echo " ============== docker login =================="
 
-                withCredentials([usernamePassword(credentialsId: 'dockerhub_hovo', usernameVariable: 'hovo14', passwordVariable: 'fearme1$')]) {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub_hovo', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
 
                     sh """
 
@@ -54,7 +54,7 @@ pipeline {
 
                 dir ('docker') {
 
-                sh 'docker build -t hovops/nginx . '
+                sh 'docker build -t hovo14/nginx . '
 
                 }
             }
@@ -69,7 +69,7 @@ pipeline {
 
                 sh '''
 
-                docker push hovops/nginx
+                docker push hovo14/nginx
 
                 '''
 
